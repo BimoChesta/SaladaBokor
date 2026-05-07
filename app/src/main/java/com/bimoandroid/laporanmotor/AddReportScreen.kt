@@ -11,9 +11,14 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import coil.compose.AsyncImage
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import com.google.firebase.storage.FirebaseStorage
+import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+
 fun AddReportScreen() {
 
     var kodeBarang by remember {
@@ -64,6 +69,56 @@ fun AddReportScreen() {
     ) { uri ->
 
         imageUri = uri
+    }
+
+    val context = LocalContext.current
+    val storage = FirebaseStorage.getInstance()
+
+    fun uploadImageToFirebase() {
+
+        if (imageUri == null) {
+
+            Toast.makeText(
+                context,
+                "Pilih gambar dulu",
+                Toast.LENGTH_LONG
+            ).show()
+
+            return
+        }
+
+        val fileName =
+            UUID.randomUUID().toString()
+
+        val storageRef =
+            storage.reference
+                .child("kendaraan/$fileName.jpg")
+
+        storageRef.putFile(imageUri!!)
+            .addOnSuccessListener {
+
+                storageRef.downloadUrl
+                    .addOnSuccessListener { uri ->
+
+                        val imageUrl = uri.toString()
+
+                        Toast.makeText(
+                            context,
+                            "Upload berhasil",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        println(imageUrl)
+                    }
+            }
+            .addOnFailureListener { error ->
+
+                Toast.makeText(
+                    context,
+                    "Upload gagal: ${error.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
     }
 
     Scaffold(
@@ -264,6 +319,7 @@ fun AddReportScreen() {
             Button(
                 onClick = {
 
+                    uploadImageToFirebase()
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
