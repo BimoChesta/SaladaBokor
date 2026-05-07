@@ -7,6 +7,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import coil.compose.AsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,6 +53,18 @@ fun AddReportScreen() {
 
     val listJenis =
         listOf("R2", "R3", "R4")
+
+    var imageUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract =
+            ActivityResultContracts.GetContent()
+    ) { uri ->
+
+        imageUri = uri
+    }
 
     Scaffold(
 
@@ -210,6 +226,38 @@ fun AddReportScreen() {
                 },
                 modifier = Modifier.fillMaxWidth()
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = "Foto Kendaraan"
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Button(
+                onClick = {
+
+                    launcher.launch("image/*")
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Text("Pilih Gambar")
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            imageUri?.let {
+
+                AsyncImage(
+                    model = it,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(220.dp)
+                )
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 
