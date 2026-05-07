@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "298802298242",
+    "project_id": "laporanmotor",
+    "storage_bucket": "laporanmotor.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298802298242:android:5eebd625caf56fd69ca39b",
+        "android_client_info": {
+          "package_name": "com.bimoandroid.laporanmotor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298802298242-0gb1dr9cksnon0v8t5og88ocheglmoi4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bimoandroid.laporanmotor",
+            "certificate_hash": "904b7e2cc62e52c6857f2a8afa1186579bc0bc23"
+          }
+        },
+        {
+          "client_id": "298802298242-kgpi6qe0jhcbn60hegopp04i7k01dmup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrFTe4WMeFbXs3o8-cCDa29Jqx3Vy1bcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298802298242-kgpi6qe0jhcbn60hegopp04i7k01dmup.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
